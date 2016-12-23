@@ -1,4 +1,4 @@
-# spark-java-sdk
+# Word Chain Solver
 A Java library for word chain solver. More specifically, an algorithm for transforming one word to another word using the dictionary words as a intermediate transformations. This algorithm find the shortest path to make the transformation. The algorithm complexity is O(N2) where N is the number of words (length of each words is the source or targeted word's length) in the dictionary. 
 
 # Installing
