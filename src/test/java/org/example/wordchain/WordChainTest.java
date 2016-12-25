@@ -103,7 +103,7 @@ public class WordChainTest {
 	 * 
 	 * @return graph
 	 */
-	public Graph buildWordGraph() {
+	private Graph buildWordGraph() {
 		edges = new ArrayList<Edge>();
 
 		// build edges between the words differs by 1 character
@@ -141,7 +141,7 @@ public class WordChainTest {
 	 * 
 	 * @return (set of unique words which is called dictionary)
 	 */
-	public static Set<String> createDictionary(String path) {
+	private static Set<String> createDictionary(String path) {
 		BufferedReader bufferedReader = null;
 		FileReader fileReader = null;
 		final Set<String> dictionary = new LinkedHashSet<String>();
@@ -174,7 +174,7 @@ public class WordChainTest {
 		return dictionary;
 	}
 
-	public static List<String> getSubset(int wordLenght, Set<String> dictionary) {
+	private static List<String> getSubset(int wordLenght, Set<String> dictionary) {
 		Iterator<String> it = dictionary.iterator();
 		List<String> newSet = new ArrayList<String>();
 		String s;

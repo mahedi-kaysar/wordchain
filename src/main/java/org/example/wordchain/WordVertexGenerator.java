@@ -41,7 +41,7 @@ public class WordVertexGenerator extends RecursiveTask<List<Vertex>> {
 		}
 	}
 
-	public ArrayList<Vertex> getWordVertex() {
+	private ArrayList<Vertex> getWordVertex() {
 		ArrayList<Vertex> list = new ArrayList<Vertex>();
 		for (int i = start; i < end; i++) {
 			if (dictionary[i].length() == wordLength) {
