@@ -27,10 +27,7 @@ import org.junit.Test;
  */
 public class WordChainTest {
 
-	private List<Vertex> nodes;
-	private List<Edge> edges;
-
-	private static String[] dictionary;
+	private static Set<String> dictionary;
 	private static boolean isSetupDone = false;
 
 	@Before
@@ -38,7 +35,7 @@ public class WordChainTest {
 		if (!isSetupDone) {
 			System.out.println("Initilize the dictionary");
 			String path = "src/main/resources/websters-dictionary.txt";
-			dictionary = createDictionary(path).toArray(new String[0]);
+			dictionary = createDictionary(path);
 			isSetupDone = true;
 		}
 	}
@@ -49,22 +46,14 @@ public class WordChainTest {
 		String src = "lead";
 		String dest = "gold";
 
-		ForkJoinPool pool = new ForkJoinPool();
-		WordVertexGenerator rootTask = new WordVertexGenerator(src.length(), dictionary, 0, dictionary.length);
-		nodes = pool.invoke(rootTask);
-		pool.shutdown();
-
-		Graph graph = buildWordGraph();
-
-		WordChain wordChain = new WordChain(graph);
-		wordChain.execute(Constants.vertexMap.get(src));
-		ArrayList<Vertex> path = wordChain.getPath(Constants.vertexMap.get(dest));
+		WordChain wordChain = new DijkstraWordChain();
+		ArrayList<String> path = wordChain.print(src, dest, dictionary);
 
 		assertNotNull(path);
 		assertTrue(path.size() > 0);
 
-		for (Vertex vertex : path) {
-			System.out.println(vertex.getId());
+		for (String word : path) {
+			System.out.println(word);
 		}
 		System.out.println("================");
 
@@ -77,63 +66,17 @@ public class WordChainTest {
 		String src = "volume";
 		String dest = "golden";
 
-		ForkJoinPool pool = new ForkJoinPool();
-		WordVertexGenerator rootTask = new WordVertexGenerator(src.length(), dictionary, 0, dictionary.length);
-		nodes = pool.invoke(rootTask);
-		pool.shutdown();
-
-		Graph graph = buildWordGraph();
-
-		WordChain wordChain = new WordChain(graph);
-		wordChain.execute(Constants.vertexMap.get(src));
-		ArrayList<Vertex> path = wordChain.getPath(Constants.vertexMap.get(dest));
+		WordChain wordChain = new DijkstraWordChain();
+		ArrayList<String> path = wordChain.print(src, dest, dictionary);
 
 		assertNotNull(path);
 		assertTrue(path.size() > 0);
 
-		for (Vertex vertex : path) {
-			System.out.println(vertex.getId());
+		for (String word : path) {
+			System.out.println(word);
 		}
+
 		System.out.println("================");
-	}
-
-	/*
-	 * @param vertexNameList (list of same length words based on src and dest
-	 * word length)
-	 * 
-	 * @return graph
-	 */
-	private Graph buildWordGraph() {
-		edges = new ArrayList<Edge>();
-
-		// build edges between the words differs by 1 character
-		for (Vertex u : nodes) {
-			for (Vertex v : nodes) {
-				if (isDiffByOneChar(v.getId(), u.getId())) {
-					addEdge(u, v, 1);
-				}
-			}
-		}
-		return new Graph(nodes, edges);
-	}
-
-	private void addEdge(Vertex source, Vertex destination, int weight) {
-		Edge edge = new Edge(source, destination, weight);
-		edges.add(edge);
-	}
-
-	private boolean isDiffByOneChar(String s1, String s2) {
-		// System.out.println(s1+":"+s2);
-		int count = 0;
-		for (int i = 0; i < s1.length(); i++) {
-			if (s1.charAt(i) != s2.charAt(i))
-				count++;
-			if (count > 1)
-				return false;
-		}
-		if (count == 0)
-			return false;
-		return true;
 	}
 
 	/*
@@ -173,17 +116,4 @@ public class WordChainTest {
 		}
 		return dictionary;
 	}
-
-	private static List<String> getSubset(int wordLenght, Set<String> dictionary) {
-		Iterator<String> it = dictionary.iterator();
-		List<String> newSet = new ArrayList<String>();
-		String s;
-		while (it.hasNext()) {
-			s = it.next();
-			if (s.length() == wordLenght)
-				newSet.add(s);
-		}
-		return newSet;
-	}
-
 }

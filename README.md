@@ -13,7 +13,17 @@ This project is compiled with Java 1.8 and [Apache Maven](https://maven.apache.o
 Input: $src = lead and $dest = gold
 Output: [lead -> load -> goad -> gold]
 
-All the intermediate words came from dictionary.
+		WordChain wordChain = new DijkstraWordChain();
+		ArrayList<String> path = wordChain.print(src, dest, dictionary);
+
+		assertNotNull(path);
+		assertTrue(path.size() > 0);
+
+		for (String word : path) {
+			System.out.println(word);
+		}
+		
+All the intermediate words are produced from dictionary.
 
 #Future Work
 For improving the performance build the graph using parallel execution.
