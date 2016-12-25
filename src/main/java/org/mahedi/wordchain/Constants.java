@@ -1,4 +1,4 @@
-package org.example.wordchain;
+package org.mahedi.wordchain;
 
 import java.util.HashMap;
 import java.util.Map;

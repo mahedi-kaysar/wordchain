@@ -1,4 +1,4 @@
-package org.example.wordchain;
+package org.mahedi.wordchain;
 
 /**
  * @author mahedi

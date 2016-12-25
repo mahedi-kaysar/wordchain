@@ -1,4 +1,4 @@
-package org.example.wordchain;
+package org.mahedi.wordchain;
 
 import java.util.ArrayList;
 import java.util.List;

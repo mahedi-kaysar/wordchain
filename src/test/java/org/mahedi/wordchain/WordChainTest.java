@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.example.wordchain;
+package org.mahedi.wordchain;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -20,6 +20,8 @@ import java.util.concurrent.ForkJoinPool;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mahedi.wordchain.DijkstraWordChain;
+import org.mahedi.wordchain.WordChain;
 
 /**
  * @author mahedi
