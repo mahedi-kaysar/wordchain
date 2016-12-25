@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -108,7 +107,7 @@ public class WordChain {
 	}
 
 	public ArrayList<Vertex> getPath(Vertex target) {
-		ArrayList<Vertex> path = new ArrayList();
+		ArrayList<Vertex> path = new ArrayList<Vertex>();
 		Vertex step = target;
 		// check if a path exists
 		if (predecessors.get(step) == null) {
@@ -124,5 +123,4 @@ public class WordChain {
 		Collections.reverse(path);
 		return path;
 	}
-
 }

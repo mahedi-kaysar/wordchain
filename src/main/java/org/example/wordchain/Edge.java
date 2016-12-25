@@ -1,4 +1,5 @@
 package org.example.wordchain;
+
 /**
  * @author mahedi
  *
@@ -14,6 +15,7 @@ public class Edge {
 		this.destination = destination;
 		this.weight = weight;
 	}
+
 	public Edge(String id, Vertex source, Vertex destination, int weight) {
 		this.id = id;
 		this.source = source;
