@@ -3,7 +3,7 @@ package org.mahedi.wordchain;
 import java.util.List;
 
 /**
- * @author mahedi
+ * @author Mahedi Kaysar
  *
  */
 public class Graph {

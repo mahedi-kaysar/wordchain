@@ -1,7 +1,7 @@
 package org.mahedi.wordchain;
 
 /**
- * @author mahedi
+ * @author Mahedi Kaysar
  *
  */
 public class Edge {

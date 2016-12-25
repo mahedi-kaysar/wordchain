@@ -4,6 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
+/**
+ * <tt>WordVertexGenerator<tt> uses Fork/Join Framework for searching a dictionary by
+ * dividing into multiple task for executing in parallel and best use of all the available
+ * processors in the host machine. 
+ * 
+ * Currently, this class has not been used in this project. However, It is still in experimental
+ * place for the implementation of parallel and distributed graph processing.
+ * 
+ * @author Mahedi Kaysar
+ *
+ */
 public class WordVertexGenerator extends RecursiveTask<List<Vertex>> {
 
 	private static final long serialVersionUID = 1L;

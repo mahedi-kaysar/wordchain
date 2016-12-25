@@ -12,9 +12,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
 
@@ -24,12 +27,13 @@ import org.mahedi.wordchain.DijkstraWordChain;
 import org.mahedi.wordchain.WordChain;
 
 /**
- * @author mahedi
+ * WordChainTest tests the WordChain Algorithm
+ * @author Mahedi Kaysar
  *
  */
 public class WordChainTest {
 
-	private static Set<String> dictionary;
+	private static Map<Integer, Set<String>> customedDictionary;
 	private static boolean isSetupDone = false;
 
 	@Before
@@ -37,8 +41,9 @@ public class WordChainTest {
 		if (!isSetupDone) {
 			System.out.println("Initilize the dictionary");
 			String path = "src/main/resources/websters-dictionary.txt";
-			dictionary = createDictionary(path);
+			customedDictionary = createCustomDictionary(path);
 			isSetupDone = true;
+			System.out.println("Initialisation Done");
 		}
 	}
 
@@ -49,7 +54,7 @@ public class WordChainTest {
 		String dest = "gold";
 
 		WordChain wordChain = new DijkstraWordChain();
-		ArrayList<String> path = wordChain.print(src, dest, dictionary);
+		ArrayList<String> path = wordChain.get(src, dest, customedDictionary);
 
 		assertNotNull(path);
 		assertTrue(path.size() > 0);
@@ -57,7 +62,7 @@ public class WordChainTest {
 		for (String word : path) {
 			System.out.println(word);
 		}
-		System.out.println("================");
+		System.out.println("test1Execute() done");
 
 	}
 
@@ -69,7 +74,7 @@ public class WordChainTest {
 		String dest = "golden";
 
 		WordChain wordChain = new DijkstraWordChain();
-		ArrayList<String> path = wordChain.print(src, dest, dictionary);
+		ArrayList<String> path = wordChain.get(src, dest, customedDictionary);
 
 		assertNotNull(path);
 		assertTrue(path.size() > 0);
@@ -78,15 +83,14 @@ public class WordChainTest {
 			System.out.println(word);
 		}
 
-		System.out.println("================");
+		System.out.println("test2Execute() Done");
 	}
 
-	/*
-	 * @path (text file)
-	 * 
-	 * @return (set of unique words which is called dictionary)
+	/**
+	 * @path path of the text file
+	 * @return set of unique words which is called word dictionary
 	 */
-	private static Set<String> createDictionary(String path) {
+	private static Set<String> createMainDictionary(String path) {
 		BufferedReader bufferedReader = null;
 		FileReader fileReader = null;
 		final Set<String> dictionary = new LinkedHashSet<String>();
@@ -117,5 +121,77 @@ public class WordChainTest {
 			}
 		}
 		return dictionary;
+	}
+
+	/**
+	 * @path path of the text file
+	 * @return set of unique words with categorized with length
+	 */
+	private static Map<Integer, Set<String>> createCustomDictionary(String path) {
+		BufferedReader bufferedReader = null;
+		FileReader fileReader = null;
+		final Map<Integer, Set<String>> customDictionary = new HashMap<>();
+
+		try {
+			fileReader = new FileReader(new File(path));
+			bufferedReader = new BufferedReader(fileReader);
+			try {
+				String line;
+				while ((line = bufferedReader.readLine()) != null) {
+					if (!line.isEmpty()) {
+						String word = line.trim().toLowerCase();
+						int key = word.length();
+						if (customDictionary.containsKey(word.length())) {
+							Set<String> wordSet = customDictionary.get(key);
+							wordSet.add(word);
+						} else {
+							Set<String> newWordSet = new HashSet<>();
+							newWordSet.add(word);
+							customDictionary.put(key, newWordSet);
+						}
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (bufferedReader != null)
+					bufferedReader.close();
+				if (fileReader != null)
+					fileReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return customDictionary;
+	}
+
+	/**
+	 * @dictionary dictionary is the set of unique words
+	 * @return set of unique words with categorized with length
+	 */
+	private static Map<Integer, Set<String>> createCustomDictionary(Set<String> dictionary) {
+
+		final Map<Integer, Set<String>> customDictionary = new HashMap<>();
+		Iterator<String> it = dictionary.iterator();
+		String line;
+		while (it.hasNext()) {
+			String word = it.next();
+			int key = word.length();
+			if (customDictionary.containsKey(word.length())) {
+				Set<String> wordSet = customDictionary.get(key);
+				wordSet.add(word);
+			} else {
+				Set<String> newWordSet = new HashSet<>();
+				newWordSet.add(word);
+				customDictionary.put(key, newWordSet);
+			}
+		}
+
+		return customDictionary;
 	}
 }
