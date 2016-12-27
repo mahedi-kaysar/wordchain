@@ -55,8 +55,10 @@ public class DijkstraWordChain implements WordChain {
 			// get the shortest path between source and target words
 			ArrayList<Vertex> shortestPath = dijkstra.getPath(vertexMap.get(target));
 
-			for (Vertex v : shortestPath)
-				result.add(v.getId());
+			if(shortestPath!=null){
+				for (Vertex v : shortestPath)
+					result.add(v.getId());
+			}
 
 			return result;
 		}

@@ -3,8 +3,7 @@
  */
 package org.mahedi.wordchain;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,8 +43,8 @@ public class WordChainTest {
 	}
 
 	@Test
-	public void test1Execute() {
-		System.out.println("Running test1Execute()");
+	public void reachableTest1Execute() {
+		System.out.println("Running reachableTest1Execute()");
 		String src = "lead";
 		String dest = "gold";
 
@@ -54,17 +53,14 @@ public class WordChainTest {
 
 		assertNotNull(path);
 		assertTrue(path.size() > 0);
-
-		for (String word : path) {
-			System.out.println(word);
-		}
-		System.out.println("test1Execute() done");
+		print(path);
+		System.out.println("reachableTest1Execute() done");
 
 	}
 
 	@Test
-	public void test2Execute() {
-		System.out.println("Running test2Execute()");
+	public void reachableTest2Execute() {
+		System.out.println("Running reachableTest2Execute()");
 
 		String src = "volume";
 		String dest = "golden";
@@ -74,34 +70,48 @@ public class WordChainTest {
 
 		assertNotNull(path);
 		assertTrue(path.size() > 0);
-
-		for (String word : path) {
-			System.out.println(word);
-		}
-
-		System.out.println("test2Execute() Done");
+		print(path);
+		System.out.println("reachableTest2Execute() Done");
 	}
-
+	
 	@Test
-	public void test3Execute() {
-		System.out.println("Running test3Execute()");
+	public void unreachableTestExecute(){
+		System.out.println("Running unreachableTestExecute()");
 
-		String src = "dfh";
-		String dest = "fff";
+		String src = "abcdef";
+		String dest = "zxyrpq";
 
 		WordChain wordChain = new DijkstraWordChain();
 		ArrayList<String> path = wordChain.get(src, dest, customedDictionary);
-
 		assertNotNull(path);
-		assertTrue(path.size() > 0);
+		assertTrue(path.isEmpty());
+		
+		System.out.println("unreachableTestExecute() Done");
+	}
+	
+	@Test
+	public void nullTestExecute(){
+		System.out.println("Running nullTestExecute()");
 
-		for (String word : path) {
-			System.out.println(word);
-		}
+		String src = "abcd";
+		String dest = "zxyrp";
 
-		System.out.println("test3Execute() Done");
+		WordChain wordChain = new DijkstraWordChain();
+		ArrayList<String> path = wordChain.get(src, dest, customedDictionary);
+		assertNull(path);
+		
+		System.out.println("nullTestExecute() Done");
 	}
 
+	private static void print(ArrayList<String> path){
+		for (int i=0;i<path.size();i++) {
+			if(i==path.size()-1)
+				System.out.print(path.get(i));
+			else
+				System.out.print(path.get(i)+"->");
+		}
+		System.out.println("\n==========================");
+	}
 	/**
 	 * @path path of the text file
 	 * @return set of unique words which is called word dictionary
