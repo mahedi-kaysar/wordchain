@@ -153,7 +153,7 @@ public class WordChainTest {
 	 * @path path of the text file
 	 * @return set of unique words with categorized with length
 	 */
-	private static Map<Integer, Set<String>> createCustomDictionary(String path) {
+	private static Map<Integer, Set<String>> createCustomDictionary(String path) throws Exception{
 		BufferedReader bufferedReader = null;
 		FileReader fileReader = null;
 		final Map<Integer, Set<String>> customDictionary = new HashMap<>();

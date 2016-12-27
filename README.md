@@ -1,20 +1,24 @@
 # Word Chain Solver
 A Java library for word chain solver. More specifically, an algorithm for transforming one word to another word using the dictionary words as an intermediate transformations. This algorithm finds the shortest path to make the word being transformed.
 
-# Installing
+# Installing and Running unit Test
 This project is compiled with Java 1.8 and [Apache Maven](https://maven.apache.org/)
 
     $ git clone git@github.com:mahedi-kaysar/wordchain
     $ cd wordchain
-    $ mvn clean install
+    $ mvn clean package
+    
+# Running From Command Line:
+	
+	# java -cp wordchain-0.0.1-SNAPSHOT-jar-with-dependencies.jar org.mahedi.wordchain.Main {$source} {$target} websters-dictionary.txt
 
 # Examples
 
-Input: #src = lead and #dest = gold
+Input: source = lead and target = gold
 Output: [lead -> load -> goad -> gold]
 
 		WordChain wordChain = new DijkstraWordChain();
-		ArrayList<String> path = wordChain.print(src, dest, dictionary);
+		ArrayList<String> path = wordChain.print(source, target, dictionary);
 
 		assertNotNull(path);
 		assertTrue(path.size() > 0);
@@ -29,9 +33,9 @@ All the intermediate words are produced from the dictionary.
 
 1) if N = total words in the dictionary, M = number of similar length words like source or target, E = total edges (worse case, E=M*(M-1)), then
 	
-	# For Generating list of Vertexes -> worse case complexity is: 			0(M) 
-	# For generating list of Edges -> worse case complexity is: 			0(M*M)
- 	# For executing the Dijkstra using graph -> worse case complexity is: 	0(M + 2*E) 	
+	# For Generating list of Vertexes -> worse case complexity is: 0(M) 
+	# For generating list of Edges -> worse case complexity is: 0(M*M)
+	# For executing the Dijkstra using graph -> worse case complexity is: 0(M + 2*E) 	
 
 There the total worse case complexity is: O(2*M + 2*E + M*M). In this implementation, the edge size could be much higher than node size.
 
