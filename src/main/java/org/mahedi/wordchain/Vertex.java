@@ -1,9 +1,5 @@
 package org.mahedi.wordchain;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * @author Mahedi Kaysar
  *

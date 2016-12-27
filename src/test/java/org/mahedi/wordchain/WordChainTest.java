@@ -16,15 +16,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ForkJoinPool;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mahedi.wordchain.DijkstraWordChain;
-import org.mahedi.wordchain.WordChain;
 
 /**
  * WordChainTest tests the WordChain Algorithm

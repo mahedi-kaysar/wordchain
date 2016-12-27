@@ -1,5 +1,5 @@
 # Word Chain Solver
-A Java library for word chain solver. More specifically, an algorithm for transforming one word to another word using the dictionary words as a intermediate transformations. This algorithm find the shortest path to make the transformation. The algorithm complexity is O(N2) where N is the number of words (length of each words is the source or targeted word's length) in the dictionary. 
+A Java library for word chain solver. More specifically, an algorithm for transforming one word to another word using the dictionary words as a intermediate transformations. This algorithm finds the shortest path to make the word being transformation.
 
 # Installing
 This project is compiled with Java 1.8 and [Apache Maven](https://maven.apache.org/)
@@ -23,11 +23,17 @@ Output: [lead -> load -> goad -> gold]
 			System.out.println(word);
 		}
 		
-All the intermediate words are produced from dictionary.
+All the intermediate words are produced from the dictionary.
+
+# Algorithm Complexity
+
+1) if N = total words in the dictionary, M = number of similar length words like source or target, E = total edges, then
+2) For Generating list of Vertexes -> worse case complexity is: 		0(M) 
+3) For generating list of Edges -> worse case complexity is: 			0(M*M)
+4) For executing the Dijkstra using graph -> worse case complexity is: 	0(M + 2*E) 	
+
+There the total worse case complexity is: O(2*M + 2*E + M*M). In this implementation, the edge size could be much higher than node size.
+
 
 #Future Work
-For improving the performance build the graph using parallel execution.
-For example, if the dictionary size is N = 1000000
-Partitioned could be: P = 100
-Size of each partition, M = N/P = 10000
-Worse Case time complexity would be: ~ O (M) for graph building.
+For improving the performance build the graph using parallel execution and implement graph partitioning algorithm.

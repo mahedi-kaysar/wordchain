@@ -55,14 +55,14 @@ public class Dijkstra {
 		while (temporaryNodes.size() > 0) {
 
 			// extract a neighbor with a minimal weight.
-			Vertex node = getMinimumNeighbor(temporaryNodes);
+			Vertex node = getMinimumNeighbor(temporaryNodes); // O(E)
 			// add and remove the node from permanent and temporary sets
 			// respectively
 			permanentNodes.add(node);
 			temporaryNodes.remove(node);
 
 			// update the weights or distance of the neighbors of a parent node
-			updateNeighborNodesWeights(node);
+			updateNeighborNodesWeights(node); // O(E)
 		}
 	}
 
@@ -98,8 +98,8 @@ public class Dijkstra {
 	 * @return void
 	 */
 	private void updateNeighborNodesWeights(Vertex node) {
-		List<Vertex> adjacentNodes = getUnSettledNeighbors(node);
-		for (Vertex target : adjacentNodes) {
+		List<Vertex> adjacentNodes = getUnSettledNeighbors(node); //E
+		for (Vertex target : adjacentNodes) { // M
 			int sourceNodeWeight = getCurrentNodeWeight(node);
 			int edgeWeight = getEdgeWeight(node, target);
 			if (getCurrentNodeWeight(target) > (sourceNodeWeight + edgeWeight)) {
