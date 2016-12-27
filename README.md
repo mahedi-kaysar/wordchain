@@ -1,5 +1,5 @@
 # Word Chain Solver
-A Java library for word chain solver. More specifically, an algorithm for transforming one word to another word using the dictionary words as a intermediate transformations. This algorithm finds the shortest path to make the word being transformation.
+A Java library for word chain solver. More specifically, an algorithm for transforming one word to another word using the dictionary words as a intermediate transformations. This algorithm finds the shortest path to make the word being transformed.
 
 # Installing
 This project is compiled with Java 1.8 and [Apache Maven](https://maven.apache.org/)
