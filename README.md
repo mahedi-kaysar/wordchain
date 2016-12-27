@@ -28,9 +28,10 @@ All the intermediate words are produced from the dictionary.
 # Algorithm Complexity
 
 1) if N = total words in the dictionary, M = number of similar length words like source or target, E = total edges (worse case, E=M*(M-1)), then
-	## For Generating list of Vertexes -> worse case complexity is: 		0(M) 
- 	## For generating list of Edges -> worse case complexity is: 			0(M*M)
- 	## For executing the Dijkstra using graph -> worse case complexity is: 		0(M + 2*E) 	
+	
+	# For Generating list of Vertexes -> worse case complexity is: 			0(M) 
+	# For generating list of Edges -> worse case complexity is: 			0(M*M)
+ 	# For executing the Dijkstra using graph -> worse case complexity is: 		0(M + 2*E) 	
 
 There the total worse case complexity is: O(2*M + 2*E + M*M). In this implementation, the edge size could be much higher than node size.
 
