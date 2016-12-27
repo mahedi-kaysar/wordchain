@@ -17,6 +17,7 @@ import java.util.concurrent.ForkJoinPool;
  */
 public class DijkstraWordChain implements WordChain {
 
+	private Map<String, Vertex> vertexMap;
 	/**
 	 * @see org.mahedi.wordchain.WordChain#get(java.lang.String,
 	 *      java.lang.String, java.util.Set)
@@ -36,6 +37,9 @@ public class DijkstraWordChain implements WordChain {
 		ArrayList<String> result = new ArrayList<>();
 
 		if (source.length() == target.length()) {
+			// in case if source and target words are not available in the dictionary
+			dictionary.get(source.length()).add(source);
+			dictionary.get(target.length()).add(target);
 			// generate graph nodes and edges based on word length
 			List<Vertex> nodes = generateNodes(source.length(), dictionary);
 			System.out.println("nodes generated: " + nodes.size());
@@ -47,10 +51,10 @@ public class DijkstraWordChain implements WordChain {
 
 			// run Dijkstra algorithm over the graph
 			Dijkstra dijkstra = new Dijkstra(graph);
-			dijkstra.execute(Constants.vertexMap.get(source));
+			dijkstra.execute(vertexMap.get(source));
 
 			// get the shortest path between source and target words
-			ArrayList<Vertex> shortestPath = dijkstra.getPath(Constants.vertexMap.get(target));
+			ArrayList<Vertex> shortestPath = dijkstra.getPath(vertexMap.get(target));
 
 			for (Vertex v : shortestPath)
 				result.add(v.getId());
@@ -58,26 +62,6 @@ public class DijkstraWordChain implements WordChain {
 			return result;
 		}
 		return null;
-	}
-
-	/**
-	 * This method also generates nodes by implementing concurrent execution
-	 * using Fork/Join Framework
-	 * 
-	 * @param wordSize
-	 *            wordSize is the length of the words which to be transformed.
-	 * @param dictionary
-	 * 
-	 * @return list of <tt>Vertex<tt>
-	 */
-	private List<Vertex> generateNodes(int wordSize, String[] dictionary) {
-		ForkJoinPool pool = new ForkJoinPool();
-		WordVertexGenerator rootTask = new WordVertexGenerator(wordSize, dictionary, 0, dictionary.length);
-		List<Vertex> nodes = pool.invoke(rootTask);
-		pool.shutdown();
-		for (Vertex v : nodes)
-			System.out.println(v.getId());
-		return nodes;
 	}
 
 	/**
@@ -93,13 +77,13 @@ public class DijkstraWordChain implements WordChain {
 	 */
 	private List<Vertex> generateNodes(int wordSize, Map<Integer, Set<String>> dictionary) {
 		List<Vertex> nodes = new ArrayList<>();
-		Constants.vertexMap.clear();
+		vertexMap = new HashMap<>();
 		if (dictionary.containsKey(wordSize)) {
 			Iterator<String> it = dictionary.get(wordSize).iterator();
 			while (it.hasNext()) {
 				String word = it.next();
 				Vertex v = new Vertex(word);
-				Constants.vertexMap.put(word, v);
+				vertexMap.put(word, v);
 				nodes.add(v);
 			}
 		}

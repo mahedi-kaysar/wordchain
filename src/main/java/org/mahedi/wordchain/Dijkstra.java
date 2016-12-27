@@ -67,9 +67,7 @@ public class Dijkstra {
 	}
 
 	/**
-	 * The method find extract the minimum nodes form the temporary node set by
-	 * linear search. This method could be implemented as a <tt>min heap or min
-	 * priority queue<tt> in future for getting time complexity log(V)
+	 * The method find extract the minimum nodes form the temporary node set.
 	 * 
 	 * @param vertexes
 	 *            vertexes are the set of temporary nodes

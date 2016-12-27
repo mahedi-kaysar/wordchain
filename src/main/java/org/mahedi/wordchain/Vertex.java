@@ -1,12 +1,15 @@
 package org.mahedi.wordchain;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * @author Mahedi Kaysar
  *
  */
 public class Vertex {
 	private String id;
-
 	public Vertex(String id) {
 		this.id = id;
 	}
@@ -19,5 +22,4 @@ public class Vertex {
 	public String toString() {
 		return "Vertex [id=" + id + "]";
 	}
-
 }

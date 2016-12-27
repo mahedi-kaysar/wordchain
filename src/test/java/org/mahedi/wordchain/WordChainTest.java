@@ -86,6 +86,26 @@ public class WordChainTest {
 		System.out.println("test2Execute() Done");
 	}
 
+	@Test
+	public void test3Execute() {
+		System.out.println("Running test3Execute()");
+
+		String src = "dfh";
+		String dest = "fff";
+
+		WordChain wordChain = new DijkstraWordChain();
+		ArrayList<String> path = wordChain.get(src, dest, customedDictionary);
+
+		assertNotNull(path);
+		assertTrue(path.size() > 0);
+
+		for (String word : path) {
+			System.out.println(word);
+		}
+
+		System.out.println("test3Execute() Done");
+	}
+
 	/**
 	 * @path path of the text file
 	 * @return set of unique words which is called word dictionary
